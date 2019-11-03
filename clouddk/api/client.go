@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -41,8 +42,8 @@ func NewClient(token string, endpoint string) (*Client, error) {
 	return client, nil
 }
 
-func (c *Client) newRequest(method string, path string) (*http.Request, error) {
-	req, err := http.NewRequest(method, c.baseURL.String() + path, nil)
+func (c *Client) newRequest(method string, path string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest(method, c.baseURL.String() + path, body)
 	if err != nil {
 		return nil, err
 	}
