@@ -7,6 +7,8 @@ import (
 	"errors"
 )
 
+type Bool bool
+
 type CloudServer struct {
 	Identifier          string   `json:"identifier"`
 	HostName            string   `json:"hostname"`
@@ -14,7 +16,7 @@ type CloudServer struct {
 	InitialRootPassword *string  `json:"initialRootPassword"`
 	Cpus                int      `json:"cpus"`
 	Memory              int      `json:"memory"`
-	Booted              bool     `json:"booted"`
+	Booted              Bool     `json:"booted"`
 	Disks               []Disk   `json:"disks"`
 	NetworkInterfaces   []NetworkInterface `json:"networkInterfaces"`
 	Template            Template `json:"template"`
@@ -26,7 +28,7 @@ type Disk struct {
 	Identifier string `json:"identifier"`
 	Label      string `json:"label"`
 	Size       int    `json:"size"`
-	Primary    int    `json:"primary"`
+	Primary    Bool   `json:"primary"`
 }
 
 type NetworkInterface struct {
@@ -34,7 +36,7 @@ type NetworkInterface struct {
 	Label                string `json:"label"`
 	RateLimit            int    `json:"rate_limit"`
 	DefaultFirewallRule  string `json:"default_firewall_rule"`
-	Primary              int    `json:"primary"`
+	Primary              Bool   `json:"primary"`
 	IpAddresses          []IpAddress    `json:"ipAddresses"`
 	FirewallRules        []FirewallRule `json:"firewallRules"`
 }
@@ -69,6 +71,12 @@ type Package struct {
 
 type ClouddkService struct {
 	c *Client
+}
+
+func (bit *Bool) UnmarshalJSON(b []byte) error {
+	txt := string(b)
+	*bit = txt == "1" || txt == "true"
+	return nil
 }
 
 // List existing cloudservers

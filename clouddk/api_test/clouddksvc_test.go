@@ -49,6 +49,31 @@ func TestGetCloudServer(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	assert.Assert(t, response.Booted)
-	// TODO
+	assert.Assert(t, bool(response.Booted))
+	assert.Equal(t, response.Identifier, "identifier1")
+}
+
+func TestCreateCloudServer(t *testing.T) {
+	server := setupTestServer(t, "createcloudserver_resp.json")
+	defer server.Close()
+
+	client := testClient(t, server)
+	cs, err := client.ClouddkService.CreateCloudServer(context.Background(), &api.CloudServer{
+		HostName:            "hostname",
+		Label:               "label",
+		InitialRootPassword: nil,
+		Template: api.Template{
+			Identifier: "ubuntu-18.04-x64",
+		},
+		Location: api.Location{
+			Identifier: "dk1",
+		},
+		Package: api.Package{
+			Identifier: "ac949a1cb4731d",
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.Equal(t, cs.Identifier, "identifier1")
 }

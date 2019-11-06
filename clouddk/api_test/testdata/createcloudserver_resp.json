@@ -1,0 +1,47 @@
+{
+  "identifier": "identifier1",
+  "hostname": "hostname",
+  "label": "label",
+  "cpus": 1,
+  "memory": 512,
+  "booted": 0,
+  "disks": [
+    {
+      "identifier": "diskid",
+      "label": "Disk#19598",
+      "size": 20,
+      "primary": 1
+    }
+  ],
+  "networkInterfaces": [
+    {
+      "identifier": "networkid",
+      "label": "Network Interface #0",
+      "rate_limit": 1000,
+      "default_firewall_rule": "ACCEPT",
+      "primary": 1,
+      "ipAddresses": [
+        {
+          "address": "127.0.30.198",
+          "network": "127.0.30.0",
+          "netmask": null,
+          "gateway": "127.0.30.254",
+          "network_interface_identifier": "networkid"
+        }
+      ],
+      "firewallRules": []
+    }
+  ],
+  "template": {
+    "identifier": "ubuntu-18.04-x64",
+    "name": "Ubuntu 18.04"
+  },
+  "location": {
+    "identifier": "dk1",
+    "name": "DK1"
+  },
+  "package": {
+    "identifier": "ac949a1cb4731d",
+    "name": "clouddk.s1"
+  }
+}
