@@ -10,43 +10,43 @@ import (
 type Bool bool
 
 type CloudServer struct {
-	Identifier          string   `json:"identifier"`
-	HostName            string   `json:"hostname"`
-	Label               string   `json:"label"`
-	InitialRootPassword *string  `json:"initialRootPassword"`
-	Cpus                int      `json:"cpus"`
-	Memory              int      `json:"memory"`
-	Booted              Bool     `json:"booted"`
-	Disks               []Disk   `json:"disks"`
-	NetworkInterfaces   []NetworkInterface `json:"networkInterfaces"`
-	Template            Template `json:"template"`
-	Location            Location `json:"location"`
-	Package             Package  `json:"package"`
+	Identifier          string   `json:"identifier,omitempty"`
+	HostName            string   `json:"hostname,omitempty"`
+	Label               string   `json:"label,omitempty"`
+	InitialRootPassword *string  `json:"initialRootPassword,omitempty"`
+	Cpus                int      `json:"cpus,omitempty"`
+	Memory              int      `json:"memory,omitempty"`
+	Booted              Bool     `json:"booted,omitempty"`
+	Disks               []Disk   `json:"disks,omitempty"`
+	NetworkInterfaces   []NetworkInterface `json:"networkInterfaces,omitempty"`
+	Package             Package  `json:"package,omitempty"`
+	Template            Template `json:"template,omitempty"`
+	Location            Location `json:"location,omitempty"`
 }
 
 type Disk struct {
-	Identifier string `json:"identifier"`
-	Label      string `json:"label"`
-	Size       int    `json:"size"`
-	Primary    Bool   `json:"primary"`
+	Identifier string `json:"identifier,omitempty"`
+	Label      string `json:"label,omitempty"`
+	Size       int    `json:"size,omitempty"`
+	Primary    Bool   `json:"primary,omitempty"`
 }
 
 type NetworkInterface struct {
-	Identifier           string `json:"identifier"`
-	Label                string `json:"label"`
-	RateLimit            int    `json:"rate_limit"`
-	DefaultFirewallRule  string `json:"default_firewall_rule"`
-	Primary              Bool   `json:"primary"`
-	IpAddresses          []IpAddress    `json:"ipAddresses"`
-	FirewallRules        []FirewallRule `json:"firewallRules"`
+	Identifier           string `json:"identifier,omitempty"`
+	Label                string `json:"label,omitempty"`
+	RateLimit            int    `json:"rate_limit,omitempty"`
+	DefaultFirewallRule  string `json:"default_firewall_rule,omitempty"`
+	Primary              Bool   `json:"primary,omitempty"`
+	IpAddresses          []IpAddress    `json:"ipAddresses,omitempty"`
+	FirewallRules        []FirewallRule `json:"firewallRules,omitempty"`
 }
 
 type IpAddress struct {
-	Address                    string `json:"address"`
-	Network                    string `json:"network"`
-	Netmask                    string `json:"netmask"`
-	Gateway                    string `json:"gateway"`
-	NetworkInterfaceIdentifier string `json:"network_interface_identifier"`
+	Address                    string `json:"address,omitempty"`
+	Network                    string `json:"network,omitempty"`
+	Netmask                    string `json:"netmask,omitempty"`
+	Gateway                    string `json:"gateway,omitempty"`
+	NetworkInterfaceIdentifier string `json:"network_interface_identifier,omitempty"`
 }
 
 type FirewallRule struct {
@@ -55,18 +55,18 @@ type FirewallRule struct {
 }
 
 type Template struct {
-	Identifier string `json:"identifier"`
-	Name       string `json:"name"`
+	Identifier string `json:"identifier,omitempty"`
+	Name       string `json:"name,omitempty"`
 }
 
 type Location struct {
-	Identifier string `json:"identifier"`
-	Name       string `json:"name"`
+	Identifier string `json:"identifier,omitempty"`
+	Name       string `json:"name,omitempty"`
 }
 
 type Package struct {
-	Identifier string `json:"identifier"`
-	Name       string `json:"name"`
+	Identifier string `json:"identifier,omitempty"`
+	Name       string `json:"name,omitempty"`
 }
 
 type ClouddkService struct {
@@ -119,11 +119,11 @@ func (svc *ClouddkService)  GetCloudServer(ctx context.Context, identifier strin
 // Delete cloud server with specified identifier
 func (svc *ClouddkService) DeleteCloudServer(ctx context.Context, identifier string) error {
 	// TODO
-	return errors.New("Delete cloud server not implemented yet")
+	return errors.New("delete cloud server not implemented yet")
 }
 
 // Update cloud server with specified identifier
 func (svc *ClouddkService) UpdateCloudServer(ctx context.Context, identifier string, cs *CloudServer) (*CloudServer, error) {
 	// TODO
-	return nil, errors.New("Update cloud server not implemented yet")
+	return nil, errors.New("update cloud server not implemented yet")
 }
