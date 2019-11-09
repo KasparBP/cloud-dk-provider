@@ -118,8 +118,13 @@ func (svc *ClouddkService)  GetCloudServer(ctx context.Context, identifier strin
 
 // Delete cloud server with specified identifier
 func (svc *ClouddkService) DeleteCloudServer(ctx context.Context, identifier string) error {
-	// TODO
-	return errors.New("delete cloud server not implemented yet")
+	req, err := svc.c.newRequest("DELETE", "/v1/cloudservers/"+identifier, nil)
+	if err != nil {
+		return err
+	}
+	var output Bool
+	_, err = svc.c.do(ctx, req, &output)
+	return err
 }
 
 // Update cloud server with specified identifier

@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 const (
@@ -70,7 +71,10 @@ func (c *Client) do(ctx context.Context, req *http.Request, v interface{}) (*htt
 	if err = c.httpErrorHandler(resp); err != nil {
 		return nil, err
 	}
-	err = json.NewDecoder(resp.Body).Decode(v)
+	contentType := resp.Header.Get("Content-Type")
+	if resp.ContentLength > 0 && strings.Contains(contentType, "json") {
+		err = json.NewDecoder(resp.Body).Decode(v)
+	}
 	return resp, err
 }
 
