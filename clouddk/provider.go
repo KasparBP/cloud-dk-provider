@@ -39,6 +39,7 @@ func providerSchema() map[string]*schema.Schema {
 func providerResourcesMap() map[string]*schema.Resource {
 	return map[string]*schema.Resource {
 		"clouddk_server": ResourceCloudServer(),
+		"clouddk_disk": ResourceDisk(),
 	}
 }
 

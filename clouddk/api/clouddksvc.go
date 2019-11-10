@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 )
 
 type Bool bool
@@ -132,3 +133,30 @@ func (svc *ClouddkService) UpdateCloudServer(ctx context.Context, identifier str
 	// TODO
 	return nil, errors.New("update cloud server not implemented yet")
 }
+
+func (svc *ClouddkService) CreateDisk(ctx context.Context, csid string, disk Disk) (*Disk, error) {
+	body, err := json.Marshal(disk)
+	if err != nil {
+		return nil, err
+	}
+	url := fmt.Sprintf("/v1/cloudservers/%s/disks", csid)
+	req, err := svc.c.newRequest("POST", url, bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+	var createdDisk Disk
+	_, err = svc.c.do(ctx, req, &createdDisk)
+	return &createdDisk, err
+}
+
+func (svc *ClouddkService) GetDisk(ctx context.Context, csid string, id string) (*Disk, error) {
+	url := fmt.Sprintf("/v1/cloudservers/%s/disks/%s", csid, id)
+	req, err := svc.c.newRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	var disk Disk
+	_, err = svc.c.do(ctx, req, &disk)
+	return &disk, err
+}
+
